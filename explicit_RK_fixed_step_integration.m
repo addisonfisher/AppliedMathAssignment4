@@ -19,5 +19,36 @@
 %integration'
 function [t_list,X_list,h_avg, num_evals] = explicit_RK_fixed_step_integration ...
 (rate_func_in,tspan,X0,h_ref,BT_struct)
-%your code here
+    t_start = tspan(1);
+    t_end = tspan(2);
+
+    %get num steps over time interval
+    num_steps = ceil((t_end - t_start) / h_ref);
+    h_avg = (t_end - t_start) / num_steps;
+
+    t_list = zeros(num_steps + 1, 1);
+    %initialize x_list using number of ics in X0
+    X_list = zeros(num_steps + 1, size(X0, 1)); 
+
+    t_list(1) = t_start;
+    X_list(1, :) = X0'; 
+    
+    total_num_evals = 0;
+
+    for i = 1:num_steps
+        current_t = t_list(i);
+        %get current state vector
+        current_X = X_list(i, :)'; 
+
+        %get next state
+        [next_X, step_evals] = explicit_RK_step(rate_func_in, current_t, current_X, h_avg, BT_struct);
+        
+        %update the total count of rate function evaluations
+        total_num_evals = total_num_evals + step_evals;
+
+        t_list(i + 1) = t_list(i) + h_avg;
+        X_list(i + 1, :) = next_X';
+    end
+    
+    num_evals = total_num_evals;
 end
