@@ -27,17 +27,18 @@ function [XB, num_evals] = explicit_RK_step(rate_func_in,t,XA,h,BT_struct)
     B = BT_struct.B;
     C = BT_struct.C;
     
-    %get s by finding size of A
-    [~, s] = size(A);
+    %get s by finding size of B
+    s = length(BT_struct.B);
+    m = length(XA);
     
-    k = zeros(s,1);
+    k = zeros(m, s);
     num_evals = 0;
 
     %iterate through each k_n for the length of s
     for i = 1:s
         sum_val1 = k*(A(i,:)');
 
-        k(i) = rate_func(t + C(i) * h, XA + h * sum_val1);
+        k(:,i) = rate_func(t + C(i) * h, XA + h * sum_val1);
         num_evals = num_evals + 1;
     end
 

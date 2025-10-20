@@ -1,5 +1,5 @@
 function CFOBT = classic_fourth_order()
-    CFOBT.C = [0,   1/2, 1/2, 0];
+    CFOBT.C = [0,   1/2, 1/2, 1];
     CFOBT.A = [0,   0,   0,   0;
                1/2, 0,   0,   0;
                0,   1/2, 0,   0;
