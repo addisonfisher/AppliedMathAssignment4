@@ -6,8 +6,8 @@ function planetary_test()
     %init orbit params
     orbit_params = struct();
     orbit_params.m_sun = 1;
-    orbit_params.m_planet = 1;
-    orbit_params.G = 40;
+    orbit_params.m_planet = 3e-6;
+    orbit_params.G = 4*pi^2;
 
     %init initial conditions
     x0 = 8;
