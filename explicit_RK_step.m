@@ -42,7 +42,7 @@ function [XB, num_evals] = explicit_RK_step(rate_func_in,t,XA,h,BT_struct)
         num_evals = num_evals + 1;
     end
 
-    sum_val2 = k*B;
+    sum_val2 = k.*B;
     
     XB = XA + h .* sum_val2;
 
