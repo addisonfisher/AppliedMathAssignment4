@@ -35,7 +35,7 @@ function [XB, num_evals] = explicit_RK_step(rate_func_in,t,XA,h,BT_struct)
 
     %iterate through each k_n for the length of s
     for i = 1:s
-        sum_val1 = K*(A(i,:)');
+        sum_val1 = k*(A(i,:)');
 
         k(i) = rate_func(t + C(i) * h, XA + h * sum_val1);
         num_evals = num_evals + 1;
