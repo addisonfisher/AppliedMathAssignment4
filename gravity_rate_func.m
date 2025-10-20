@@ -15,7 +15,7 @@ function dVdt = gravity_rate_func(t,V,orbit_params)
     x_p = V(1);
     y_p = V(2);
     dxdt_p = V(3);
-    dydt_p = V(4)
+    dydt_p = V(4);
 
     m_sun = orbit_params.m_sun;
     G = orbit_params.G;
