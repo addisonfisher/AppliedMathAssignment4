@@ -20,17 +20,20 @@
 
 function [XB, num_evals] = explicit_RK_step(rate_func_in,t,XA,h,BT_struct)
     
+    %pose rate_func as an anon fn
     rate_func = @(t, X) rate_func_in(t, X);
 
     A = BT_struct.A;
     B = BT_struct.B;
     C = BT_struct.C;
-
+    
+    %get s by finding size of A
     [~, s] = size(A);
-     
+    
     k = zeros(s,1);
     num_evals = 0;
 
+    %iterate through each k_n for the length of s
     for i = 1:s
         sum_val1 = K*(A(i,:)');
 
