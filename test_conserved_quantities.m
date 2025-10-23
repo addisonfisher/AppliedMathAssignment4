@@ -56,7 +56,7 @@ function test_conserved_quantities()
         
         plot(results{i}.t_list, relative_E_error, 'LineWidth', 2, 'DisplayName', results{i}.name);
     end
-    legend('show', 'Location', 'northwest');
+    legend('show', 'Location', 'southwest');
     hold off;
     
     figure();

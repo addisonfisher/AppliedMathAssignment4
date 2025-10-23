@@ -51,7 +51,7 @@ function test_DP
     
     figure;
     loglog(h, error_proxy_norm, 'b.-');
-    title('Dormand-Prince Error Proxy vs. Step Size');
+    title('Dormand-Prince Error vs. Step Size');
     xlabel('Step Size (h)');
     ylabel('Error Proxy Norm |XB1 - XB2|');
     grid on;
