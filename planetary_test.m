@@ -37,5 +37,30 @@ function planetary_test()
     title('Planetary Orbit Simulation'); xlabel('X Position'); ylabel('Y Position');
     legend('Sun', 'Simulated Orbit', 'True Orbit', 'Location', 'best'); axis equal;
     hold off;
+    
+    %Calculte Local Error Between RK and Planetary Motion
+    t_ref = 1;
+    h_list = logspace(-5, -1, 100);
+    x_approx_RK_list = zeros(length(h_list),4); 
+    x_analytical_list = zeros(length(h_list),4);
+
+    V_list = compute_planetary_motion(t_ref,V0,orbit_params);
+    for i = 1:(length(h_list))
+        
+        [x_approx_RK, ~] = explicit_RK_step(my_rate_func,t_ref,V_list,h_list(i),BT_struct);
+        V_temp = compute_planetary_motion([t_ref, t_ref+h_list(i)],V0,orbit_params);
+
+        x_approx_RK_list(i,:) = x_approx_RK;
+        x_analytical_list(i,:) = V_temp(end,:);
+    end
+    analytical_difference = abs(x_analytical_list-V_list);
+    RK_error_list = norm(x_approx_RK_list - x_analytical_list);
+
+    % [p, k] = loglog_fit(h_list, RK_error_list);
+
+
+    figure;
+    loglog(h_list, RK_error_list,'ro');
+    
 
 end
