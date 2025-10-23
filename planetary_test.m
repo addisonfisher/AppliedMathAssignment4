@@ -56,11 +56,28 @@ function planetary_test()
     analytical_difference = abs(x_analytical_list - V_list');
     RK_error_list = abs(x_approx_RK_list - x_analytical_list);
 
-    % [p, k] = loglog_fit(h_list, RK_error_list);
+    [p1, k1] = loglog_fit(h_list, RK_error_list(:,1));
+    yfit1 = k1.*(h_list.^p1);
+    [p2, k2] = loglog_fit(h_list, RK_error_list(:,2));
+    yfit2 = k2.*(h_list.^p2);
+    [p3, k3] = loglog_fit(h_list, RK_error_list(:,3));
+    yfit3 = k3.*(h_list.^p3);
+    [p4, k4] = loglog_fit(h_list, RK_error_list(:,4));
+    yfit4 = k4.*(h_list.^p4);
 
 
     figure;
-    loglog(h_list, RK_error_list,'ro');
+    loglog(h_list, RK_error_list(:,1),'ro','MarkerFaceColor','r'); hold on;
+    loglog(h_list,yfit1,'k','LineWidth',2);
+    loglog(h_list, RK_error_list(:,2),'bo','MarkerFaceColor','b');
+    loglog(h_list,yfit2,'k','LineWidth',2);
+    loglog(h_list, RK_error_list(:,3),'go','MarkerFaceColor','g');
+    loglog(h_list,yfit3,'k','LineWidth',2);
+    loglog(h_list, RK_error_list(:,4),'mo','MarkerFaceColor','m');
+    loglog(h_list,yfit4,'k','LineWidth',2);
+    title('Local Truncation Error Explicit RK Step for Planetary Motion')
+    legend('X','','Y','','dx','','dy')
+    hold off
     
 
 end
