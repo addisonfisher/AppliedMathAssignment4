@@ -53,8 +53,8 @@ function planetary_test()
         x_approx_RK_list(i,:) = x_approx_RK;
         x_analytical_list(i,:) = V_temp(end,:);
     end
-    analytical_difference = abs(x_analytical_list-V_list);
-    RK_error_list = norm(x_approx_RK_list - x_analytical_list);
+    analytical_difference = abs(x_analytical_list - V_list');
+    RK_error_list = abs(x_approx_RK_list - x_analytical_list);
 
     % [p, k] = loglog_fit(h_list, RK_error_list);
 
