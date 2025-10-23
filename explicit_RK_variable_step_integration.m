@@ -23,7 +23,10 @@
 function [t_list,X_list,h_avg, num_evals] = explicit_RK_variable_step_integration ...
 (rate_func_in,tspan,X0,h_ref,BT_struct,p,error_desired)
    
-t_start = tspan(1);
+    failed_steps = 0;
+    attempted_steps = 0;
+
+    t_start = tspan(1);
     t_end = tspan(2);
 
     %get num steps over time interval
