@@ -13,7 +13,7 @@ function [h_list,analytical_difference,RK_error_list] = truncation_error(t_ref, 
         x_approx_RK_list(i,:) = x_approx_RK;
         x_analytical_list(i,:) = V_temp(end,:);
     end
-    analytical_difference = abs(x_analytical_list-V_list); % |X(t + h) − X(t)|
+    analytical_difference = abs(x_analytical_list - V_list'); % |X(t + h) − X(t)|
     RK_error_list = norm(x_approx_RK_list - x_analytical_list);
 
 end
