@@ -50,14 +50,18 @@ function [t_list,X_list,h_avg, num_evals] = explicit_RK_variable_step_integratio
         current_X = X_list(i, :)'; 
 
         %get next state
-        [next_X, step_evals] = explicit_RK_variable_step(rate_func_in, current_t, current_X, h_avg, BT_struct, p,error_desired);
+        [next_X, step_evals, failed_steps, attempted_steps] = explicit_RK_variable_step(rate_func_in, current_t, current_X, h_avg, BT_struct, p,error_desired);
         
+        failed_steps = failed_steps + 1;
+        attempted_steps = attempted_steps + 1;
+
         %update the total count of rate function evaluations
         total_num_evals = total_num_evals + step_evals;
 
         t_list(i + 1) = t_list(i) + h_avg;
         X_list(i + 1, :) = next_X';
     end
-    
+    step_failure_rate = failed_steps/attempted_steps;
+    disp(step_failure_rate);
     num_evals = total_num_evals;
 end

@@ -22,8 +22,11 @@
 %h_next: the time-step size at the next iteration
 %redo: False if the estimated error was less than error_desired
 % True if the estimated error was larger than error_desired
-function [XB, num_evals, h_next, redo] = explicit_RK_variable_step...
+function [XB, num_evals, failed_steps, attempted_steps, h_next, redo] = explicit_RK_variable_step...
 (rate_func_in,t,XA,h,BT_struct,p,error_desired)
+
+    failed_steps = 0;
+    attempted_steps = 0;
 
     %define aplha
     alpha = 5;
@@ -36,8 +39,13 @@ function [XB, num_evals, h_next, redo] = explicit_RK_variable_step...
 
     if error_current > error_desired
         redo = true;
+
+        failed_steps = failed_steps + 1;
+        attempted_steps = attempted_steps + 1;
     else
         redo = false;
+
+        attempted_steps = attempted_steps + 1;
     end
 
     scaling_factor = 0.9 * (error_desired / error_current)^(1/p);
