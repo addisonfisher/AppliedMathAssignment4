@@ -54,9 +54,9 @@ function test_conserved_quantities()
         E0 = results{i}.E_list(1);
         relative_E_error = (results{i}.E_list - E0) / E0;
         
-        plot(results{i}.t_list, relative_E_error, 'LineWidth', 2, 'DisplayName', results{i}.name);
+        plot(results{i}.t_list, abs(relative_E_error), 'LineWidth', 2, 'DisplayName', results{i}.name);
     end
-    legend('show', 'Location', 'southwest');
+    legend('show', 'Location', 'northwest');
     hold off;
     
     figure();
@@ -70,7 +70,7 @@ function test_conserved_quantities()
         H0 = results{i}.H_list(1);
         relative_H_error = (results{i}.H_list - H0) / H0;
         
-        plot(results{i}.t_list, relative_H_error, 'LineWidth', 2, 'DisplayName', results{i}.name);
+        plot(results{i}.t_list, abs(relative_H_error), 'LineWidth', 2, 'DisplayName', results{i}.name);
     end
     legend('show', 'Location', 'northwest');
 

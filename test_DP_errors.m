@@ -52,8 +52,8 @@ function test_DP_errors
     set(gca, 'XScale', 'log', 'YScale', 'log')
     loglog(h_list, LTE_XB1, 'r.-', 'DisplayName', 'LTE of XB1');
     loglog(h_list, LTE_XB2, 'b.-', 'DisplayName', 'LTE of XB2');
-    loglog(h_list, analytical_diff, 'k--', 'DisplayName', '|f(t_ref+h) - f(t_ref)|');
-    loglog(h_list, proxy_error, 'g.-', 'DisplayName', 'Error Proxy |XB1 - XB2|');
+    loglog(h_list, analytical_diff, 'k:', 'DisplayName', '|f(t_ref+h) - f(t_ref)|');
+    loglog(h_list, proxy_error, 'g.--', 'DisplayName', 'Error Proxy |XB1 - XB2|');
     title('Dormand-Prince Error Analysis');
     xlabel('Step Size (h)');
     ylabel('Error');
