@@ -72,6 +72,24 @@ function test_DP_errors
     grid on;
     axis equal;
     hold off;
+
+    %find the indices where the error is NOT on the noise floor
+    good_indices = find(proxy_error > 1e-15); 
+    table_indices = good_indices(round(linspace(1, length(good_indices), 5)));
+    
+    fprintf('%-15s | %-20s | %-20s | %-20s\n', 'Step Size (h)', 'LTE of XB1 (O(h^6))', 'LTE of XB2 (O(h^5))', 'Proxy |XB1 - XB2|');
+    
+    for k = 1:length(table_indices)
+        idx = table_indices(k);
+        
+        %get the data for this index
+        h_val = h_list(idx);
+        lte1_val = LTE_XB1(idx);
+        lte2_val = LTE_XB2(idx);
+        proxy_val = proxy_error(idx);
+        
+        fprintf('%-15.4e | %-20.4e | %-20.4e | %-20.4e\n', h_val, lte1_val, lte2_val, proxy_val);
+    end
 end
 
 function [p,k] = generate_error_fit(x_regression,y_regression)
