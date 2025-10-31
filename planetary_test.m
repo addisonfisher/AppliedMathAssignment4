@@ -1,7 +1,7 @@
 function planetary_test()
 
     %call for butcher tableu
-    BT_struct = forward_euler();
+    BT_struct = dormand_prince();
 
     %init orbit params
     orbit_params = struct();
@@ -78,6 +78,29 @@ function planetary_test()
     title('Local Truncation Error Explicit RK Step for Planetary Motion')
     legend('X','','Y','','dx','','dy')
     hold off
+  
+%%
+    % Global Truncation Error
+    % On the same axes, plot the global truncation error as a function of 
+    % the average step size for both the fixed a
+    % and adaptive step size integrators. This should be a loglog plot. Which performed better?
+    x_approx_RK_list = zeros(length(h_list),4); 
+    x_analytical_list = zeros(length(h_list),4);
+    error_desired = 1e-3;
+
+    init_vals = compute_planetary_motion(t_ref,V0,orbit_params);
+    for i = 1:(length(h_list))
+        
+        [~, x_approx_RK, ~] = explicit_RK_variable_step_integration(my_rate_func,tspan,init_vals,h_list(i),BT_struct,1,error_desired);
+        V_temp = compute_planetary_motion(tspan,V0,orbit_params);
+
+        x_approx_RK_list(i,:) = x_approx_RK;
+        x_analytical_list(i,:) = V_temp(end,:);
+    end
+    analytical_difference = abs(x_analytical_list - V_list');
+    RK_error_list = abs(x_approx_RK_list - x_analytical_list);
+
+
     
 
 end
