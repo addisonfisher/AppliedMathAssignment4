@@ -1,7 +1,7 @@
 function planetary_test()
 
     %call for butcher tableu
-    BT_struct = dormand_prince();
+    BT_struct = forward_euler();
 
     %init orbit params
     orbit_params = struct();

@@ -50,4 +50,7 @@ function [XB, num_evals, failed_steps, attempted_steps, h_next, redo] = explicit
 
     scaling_factor = 0.9 * (error_desired / error_current)^(1/p);
     h_next = min(alpha, scaling_factor) * h;
+    
+    XB=XB2;
+
 end
