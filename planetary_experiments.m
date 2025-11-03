@@ -131,16 +131,16 @@ function planetary_experiments()
     % Position vs time plot (line + dots)
     figure;
     subplot(2,1,1);
-    plot(t_list_s, X_list_s(:,1), 'ro-','markerfacecolor','k','markersize',2,'LineWidth',1); hold on;
-    plot(t_list_s, X_list_s(:,2), 'bo-','markerfacecolor','k','markersize',2,'LineWidth',1);
-    plot(t_list_s, X_ref_at_t_s(:,1), 'r--','DisplayName','Ref x'); % optional reference
+    plot(t_list_s, X_list_s(:,1), 'ro-','markerfacecolor','k'); hold on;
+    plot(t_list_s, X_list_s(:,2), 'bo-','markerfacecolor','k');
+    plot(t_list_s, X_ref_at_t_s(:,1), 'r--','DisplayName','Ref x');
     title(sprintf('Positions vs time (tol=%.2e) -- red:x, blue:y', single_tol));
     xlabel('t'); ylabel('position'); legend('x_{num}','y_{num}','x_{ref}'); grid on; hold off;
 
     % Velocity vs time
     subplot(2,1,2);
-    plot(t_list_s, X_list_s(:,3), 'go-','markerfacecolor','k','markersize',2,'LineWidth',1); hold on;
-    plot(t_list_s, X_list_s(:,4), 'mo-','markerfacecolor','k','markersize',2,'LineWidth',1);
+    plot(t_list_s, X_list_s(:,3), 'go-','markerfacecolor','k'); hold on;
+    plot(t_list_s, X_list_s(:,4), 'mo-','markerfacecolor','k');
     title('Velocities vs time (dx, dy)');
     xlabel('t'); ylabel('velocity'); legend('dx','dy'); grid on; hold off;
 
