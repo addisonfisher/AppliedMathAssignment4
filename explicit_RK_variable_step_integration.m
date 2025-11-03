@@ -29,40 +29,36 @@ function [t_list,X_list,h_avg, num_evals, step_failure_rate] = explicit_RK_varia
     t_start = tspan(1);
     t_end = tspan(2);
 
-    %get num steps over time interval
-    num_steps = ceil((t_end - t_start) / h_ref);
-    h_avg = (t_end - t_start) / num_steps;
+    h_curr = h_ref;
 
-    t_list = zeros(num_steps + 1, 1);
-
-    %t_list = linspace(tspan(1),tspan(2),N+1)';
-    %initialize x_list using number of ics in X0
-    X_list = zeros(num_steps + 1, size(X0, 1)); 
-
-    t_list(1) = t_start;
-    X_list(1, :) = X0'; 
+    t_list = t_start;
+    X_list = X0'; 
     
     total_num_evals = 0;
+    fail_steps = 0;
+    step_attemps = 0;
 
-    for i = 1:num_steps
-        current_t = t_list(i);
+    while t_list(end) < t_end
+        current_t = t_list(end);
         %get current state vector
-        current_X = X_list(i, :)'; 
+        current_X = X_list(end, :)'; 
 
         %get next state
-        [next_X, step_evals, failed_steps, attempted_steps] = explicit_RK_variable_step(rate_func_in, current_t, current_X, h_avg, BT_struct, p,error_desired);
+        [next_X, step_evals, failed_steps, attempted_steps, h_next, redo] = explicit_RK_variable_step(rate_func_in, current_t, current_X, h_curr, BT_struct, p,error_desired);
         
-        failed_steps = failed_steps + 1;
-        attempted_steps = attempted_steps + 1;
+        h_curr = h_next;
+        fail_steps = fail_steps + failed_steps;
+        step_attemps = attempted_steps + step_attemps;
 
         %update the total count of rate function evaluations
         total_num_evals = total_num_evals + step_evals;
 
-        t_list(i + 1) = t_list(i) + h_avg;
-        X_list(i + 1, :) = next_X';
+        t_list(end + 1, 1) = current_t + h_curr;
+        X_list(end + 1, :) = next_X';
+
     end
     step_failure_rate = failed_steps/attempted_steps;
     disp(step_failure_rate);
     num_evals = total_num_evals;
-
+    h_avg = mean(diff(t_list));
 end

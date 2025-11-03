@@ -27,7 +27,7 @@ function planetary_experiments()
     V_sol = compute_planetary_motion(t_ref_dense, V0, orbit_params);
 
     % --- ADAPTIVE STEP INTEGRATION EXPERIMENTS ---
-    tolerances = logspace(-8, -2, 12);  % desired local error thresholds to test
+    tolerances = logspace(-10, 0, 12);  
     n_tol = length(tolerances);
 
     adapt_avg_h   = zeros(n_tol,1);
